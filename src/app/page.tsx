@@ -46,6 +46,7 @@ export default function Home() {
           </div>
         </div>
         
+
         {/* Todo: LIst product /*/}
       </MaxWidthWrapper>
       <section className="border-t border-gray-200 bg-gray-50">
