@@ -14,11 +14,9 @@ import {
   TAuthCredentialsValidator,
 } from "@/lib/validators/account-credentials-validator";
 
-import { toast } from "sonner";
-import { ZodError } from "zod";
-import { useRouter } from "next/navigation";
 import { Icons } from "@/components/icons";
 import { trpc } from "@/trpc/client";
+import { useRouter } from "next/navigation";
 
 const Page = () => {
   const {
@@ -30,8 +28,11 @@ const Page = () => {
   });
 
   const router = useRouter();
+  const { mutate, isLoading } = trpc.auth.createPayloadUser.useMutation({});
 
-  const onSubmit = ({ email, password }: TAuthCredentialsValidator) => {};
+  const onSubmit = ({ email, password }: TAuthCredentialsValidator) => {
+    mutate({ email, password });
+  };
 
   return (
     <>
