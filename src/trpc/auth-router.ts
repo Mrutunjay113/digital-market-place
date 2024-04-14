@@ -33,6 +33,7 @@ export const authRouter = router({
       });
       return { success: true, sentToEmail: email };
     }),
+
   verifyEmail: publicProcedure
     .input(z.object({ token: z.string() }))
     .query(async ({ input }) => {
@@ -46,7 +47,7 @@ export const authRouter = router({
       });
 
       if (!isVerified)
-        throw new TRPCError({ code: "BAD_REQUEST", message: "Invalid token" });
+        throw new TRPCError({ code: "UNAUTHORIZED", message: "Invalid token" });
       return { success: true };
     }),
 });

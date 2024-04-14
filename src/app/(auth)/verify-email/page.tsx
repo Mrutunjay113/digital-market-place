@@ -3,18 +3,19 @@ import Image from "next/image";
 
 interface PageProps {
   searchParams: {
-    [key: string]: string | undefined;
+    [key: string]: string | string[] | undefined;
   };
 }
 
 const VerifyEmailPage = ({ searchParams }: PageProps) => {
   const token = searchParams.token;
   const toEmail = searchParams.to;
+  console.log(`token, toEmail`, token, toEmail);
 
   return (
     <div className="container relative flex pt-20 flex-col items-center justify-center lg:px-0">
       <div className="mx-auto flex w-full flex-col justify-center space-y-6 sm:w[350px]">
-        {token && token === "string" ? (
+        {token && typeof token === "string" ? (
           <div className="grid gap-6">
             <VerifyEmail token={token} />
           </div>
@@ -30,7 +31,7 @@ const VerifyEmailPage = ({ searchParams }: PageProps) => {
             <h3 className="font-semibold text-2xl">Check your email</h3>
             {toEmail ? (
               <p className="text-muted-foreground text-center">
-                We&apos;ve sent an email to {toEmail} with a link to{" "}
+                We&apos;ve sent an email to
                 <span className="font-semibold">{toEmail}</span>.
               </p>
             ) : (

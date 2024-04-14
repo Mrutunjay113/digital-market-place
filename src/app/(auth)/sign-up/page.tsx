@@ -17,6 +17,8 @@ import {
 import { Icons } from "@/components/icons";
 import { trpc } from "@/trpc/client";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
+import { ZodError } from "zod";
 
 const Page = () => {
   const {
@@ -28,7 +30,23 @@ const Page = () => {
   });
 
   const router = useRouter();
-  const { mutate, isLoading } = trpc.auth.createPayloadUser.useMutation({});
+  const { mutate, isLoading } = trpc.auth.createPayloadUser.useMutation({
+    onError: (error) => {
+      if (error.data?.code === "CONFLICT") {
+        toast.error("This email is already in use. Sign in instead.");
+        return;
+      }
+      if (error instanceof ZodError) {
+        toast.error(error.issues[0].message);
+        return;
+      }
+      toast.error("An error occurred. Please try again later.");
+    },
+    onSuccess: ({ sentToEmail }) => {
+      toast.success(`Verification email sent to ${sentToEmail}.`);
+      router.push("/verify-email?to=" + sentToEmail);
+    },
+  });
 
   const onSubmit = ({ email, password }: TAuthCredentialsValidator) => {
     mutate({ email, password });

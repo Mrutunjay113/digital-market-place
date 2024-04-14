@@ -1,7 +1,9 @@
 "use client";
 import { trpc } from "@/trpc/client";
-import { XCircle } from "lucide-react";
+import { Loader2, XCircle } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
+import { buttonVariants } from "./ui/button";
 
 interface VerifyEmailProps {
   token: string;
@@ -33,6 +35,24 @@ const VerifyEmail = ({ token }: VerifyEmailProps) => {
           />
         </div>
         <h3 className="font-semibold text-2xl">You&apos;re all set!</h3>
+        <p className="text-muted-foreground text-center">
+          Your email has been verified. You can now login to your account.
+        </p>
+        <Link className={buttonVariants({ className: "mt-4" })} href="/sign-in">
+          Sign in
+        </Link>
+      </div>
+    );
+  }
+
+  if (isLoading) {
+    return (
+      <div className="flex flex-col items-center gap-2">
+        <Loader2 className="h-8 w-8 animate-spin text-zinc-800" />
+        <h3 className="font-semibold text-xl">Verifying...</h3>
+        <p className="text-muted-foreground text-center">
+          This wont take long. Please wait.
+        </p>
       </div>
     );
   }
