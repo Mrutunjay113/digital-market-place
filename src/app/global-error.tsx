@@ -11,6 +11,10 @@ export default function GlobalError({
     <html>
       <body>
         <h2>Something went wrong!</h2>
+        <p>{error.digest}</p>
+        <p>{error.message}</p>
+        <pre>{error.stack}</pre>
+        <p>{error.name}</p>
         <button onClick={() => reset()}>Try again</button>
       </body>
     </html>
