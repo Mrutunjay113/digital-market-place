@@ -1,4 +1,5 @@
 import MaxWidthWrapper from "@/components/MaxWidthWrapper";
+import ProductReel from "@/components/ProductReel";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { ArrowDownToLine, CheckCircle, Leaf } from "lucide-react";
 import Image from "next/image";
@@ -30,7 +31,7 @@ export default function Home() {
     <>
       <MaxWidthWrapper>
         <div className="py-20 mx-auto text-center flex flex-col items-center max-w-3xl">
-          <h1 className="md:text-4xl text-6xl font-bold tracking-tight text-gray-900 ">
+          <h1 className="text-4xl sm:text-6xl font-bold tracking-tight text-gray-900 ">
             Your Market place for hight quality{" "}
             <span className="text-blue-600">digital assets</span>.
           </h1>
@@ -45,9 +46,13 @@ export default function Home() {
             <Button variant={"ghost"}>Our quality promise &rarr;</Button>
           </div>
         </div>
-        
 
-        {/* Todo: LIst product /*/}
+        <ProductReel
+          query={{ sort: "desc", limit: 4 }}
+          title="new products"
+          subtitle="desc"
+          href="/products"
+        />
       </MaxWidthWrapper>
       <section className="border-t border-gray-200 bg-gray-50">
         <MaxWidthWrapper className="py-20">

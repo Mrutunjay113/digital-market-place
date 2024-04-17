@@ -1,4 +1,21 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
+
+const nextConfig = {
+  //   images: {
+  //     remotePatterns: [
+  //       {
+  //         protocol: "http",
+  //         hostname: "localhost",
+  //       },
+  //       {
+  //         protocol: "https",
+  //         hostname: "digitalhippo-production.up.railway.app",
+  //       },
+  //     ],
+  //   },
+  images: {
+    domains: ["localhost", "hippomarketplace.shop"],
+  },
+};
 
 export default nextConfig;
