@@ -39,7 +39,7 @@ const ProductReel = (props: ProductReelProps) => {
   }
 
   return (
-    <section className="py-12">
+    <section className="py-12 px-4">
       <div className="md:flex md:items-center md:justify-between mb-4">
         <div className="max-w-2xl px-4 lg:max-w-4xl lg:px-0">
           {title ? (
@@ -64,7 +64,7 @@ const ProductReel = (props: ProductReelProps) => {
 
       <div className="relative">
         <div className="mt-6 flex items-center w-full">
-          <div className="w-full grid grid-cols-2 gap-x-4 gap-y-10 sm:gap-x-6 md:grid-cols-4 md:gap-y-10 lg:gap-x-8">
+          <div className="w-full grid grid-cols-2 gap-x-4 gap-y-10  md:grid-cols-4 md:gap-y-10 lg:gap-x-8">
             {map.map((product, i) => (
               <ProductListing
                 key={`product-${i}`}
