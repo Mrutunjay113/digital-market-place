@@ -10,7 +10,7 @@ import {
 import { Button } from "./ui/button";
 import { User } from "@/payload-types";
 import Link from "next/link";
-import { useAuth } from "./user-auth";
+import { useAuth } from "../hooks/user-auth";
 
 const UserAccountNav = ({ user }: { user: User }) => {
   const { signOut } = useAuth();
