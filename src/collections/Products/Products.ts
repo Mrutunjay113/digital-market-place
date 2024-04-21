@@ -1,12 +1,58 @@
 import { PRODUCT_CATEGORIES } from "../../config";
 import { CollectionConfig } from "payload/types";
 
+import { stripe } from "../../lib/stripe";
+import { Product } from "@/payload-types";
+import { BeforeChangeHook } from "payload/dist/collections/config/types";
+
+const addUser: BeforeChangeHook<Product> = async ({ data, req }) => {
+  return {
+    ...data,
+    user: req.user.id,
+  };
+};
+
 export const Products: CollectionConfig = {
   slug: "products",
   admin: {
     useAsTitle: "name",
   },
   access: {},
+  hooks: {
+    beforeChange: [
+      addUser,
+      async (args) => {
+        if (args.operation === "create") {
+          const data = args.data as Product;
+          const createProuct = await stripe.products.create({
+            name: data.name,
+            default_price_data: {
+              currency: "INR",
+              unit_amount: Math.round(data.price * 100),
+            },
+          });
+          const updated: Product = {
+            ...data,
+            stripId: createProuct.id,
+            priceId: createProuct.default_price as string,
+          };
+          return updated;
+        } else if (args.operation === "update") {
+          const data = args.data as Product;
+          const updatedProuct = await stripe.products.update(data.stripId!, {
+            name: data.name,
+            default_price: data.priceId!,
+          });
+          const updated: Product = {
+            ...data,
+            stripId: updatedProuct.id,
+            priceId: updatedProuct.default_price as string,
+          };
+          return updated;
+        }
+      },
+    ],
+  },
   fields: [
     {
       name: "user",

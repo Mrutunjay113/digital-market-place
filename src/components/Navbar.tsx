@@ -19,7 +19,7 @@ const Navbar = async () => {
           <div className="border-b border-gray-200">
             <div className="flex h-16 items-center mx-10">
               {/*Todo: Mobile Nav*/}
-              <div className="ml-4 flex lg:ml-0">
+              <div className="md:ml-4 flex lg:ml-0">
                 <Link href="/" className="text-lg font-bold text-gray-900">
                   <Icons.logo className="w-10 h-10" />
                 </Link>

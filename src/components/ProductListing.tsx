@@ -37,9 +37,12 @@ const ProductListing = ({ product, index }: ProductListingProps) => {
   if (isVisible && product) {
     return (
       <Link
-        className={cn("invisible h-full w-full cursor-pointer group/main", {
-          "visible animate-in fade-in-5": isVisible,
-        })}
+        className={cn(
+          "invisible border md:p-4 p-2  rounded-lg h-full w-full cursor-pointer group/main",
+          {
+            "visible animate-in fade-in-5": isVisible,
+          }
+        )}
         href={`/product/${product.id}`}
       >
         <div className="flex flex-col w-full">

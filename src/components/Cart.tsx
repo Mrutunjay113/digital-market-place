@@ -21,6 +21,7 @@ import { use, useEffect, useState } from "react";
 const Cart = () => {
   const { items } = useCart();
   const itemCount = items.length;
+  console.log("items", items);
 
   const [isMounted, setIsMounted] = useState<boolean>(false);
   useEffect(() => {
