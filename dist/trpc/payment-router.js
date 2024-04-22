@@ -223,9 +223,15 @@ exports.paymentRouter = (0, trpc_1.router)({
                 4 /*yield*/,
                 stripe_1.stripe.checkout.sessions.create({
                   success_url: ""
-                    .concat(process.env.NEXT_SERVER_URL, "/thank-you?orderId=")
+                    .concat(
+                      process.env.NEXT_PUBLIC_SERVER_URL,
+                      "/thank-you?orderId="
+                    )
                     .concat(order.id),
-                  cancel_url: "".concat(process.env.NEXT_SERVER_URL, "/cart"),
+                  cancel_url: "".concat(
+                    process.env.NEXT_PUBLIC_SERVER_URL,
+                    "/cart"
+                  ),
                   payment_method_types: ["card"],
                   mode: "payment",
                   metadata: {

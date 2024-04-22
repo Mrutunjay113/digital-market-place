@@ -21,7 +21,7 @@ exports.Users = {
           actionLabel: "verify your account",
           buttonText: "Verify Account",
           href: ""
-            .concat(process.env.NEXT_SERVER_URL, "/verify-email?token=")
+            .concat(process.env.NEXT_PUBLIC_SERVER_URL, "/verify-email?token=")
             .concat(token),
         });
       },

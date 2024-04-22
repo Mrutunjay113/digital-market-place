@@ -96,7 +96,7 @@ var ReceiptEmail = function (_a) {
             null,
             React.createElement(components_1.Img, {
               src: "".concat(
-                process.env.NEXT_SERVER_URL,
+                process.env.NEXT_PUBLIC_SERVER_URL,
                 "/hippo-email-sent.png"
               ),
               width: "100",
@@ -215,7 +215,10 @@ var ReceiptEmail = function (_a) {
                 components_1.Link,
                 {
                   href: ""
-                    .concat(process.env.NEXT_SERVER_URL, "/thank-you?orderId=")
+                    .concat(
+                      process.env.NEXT_PUBLIC_SERVER_URL,
+                      "/thank-you?orderId="
+                    )
                     .concat(orderId),
                   style: productLink,
                 },

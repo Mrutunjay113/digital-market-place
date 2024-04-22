@@ -83,7 +83,7 @@ var EmailTemplate = function (_a) {
         { style: container },
         React.createElement(components_1.Img, {
           src: "".concat(
-            process.env.NEXT_SERVER_URL,
+            process.env.NEXT_PUBLIC_SERVER_URL,
             "/hippo-newsletter-sign-up.png"
           ),
           width: "150",

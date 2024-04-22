@@ -305,7 +305,9 @@ var start = function () {
               return __awaiter(void 0, void 0, void 0, function () {
                 return __generator(this, function (_a) {
                   payload.logger.info(
-                    "Nextjs App URL: ".concat(process.env.NEXT_SERVER_URL)
+                    "Nextjs App URL: ".concat(
+                      process.env.NEXT_PUBLIC_SERVER_URL
+                    )
                   );
                   return [2 /*return*/];
                 });
