@@ -75,9 +75,7 @@ const start = async () => {
   nextApp.prepare().then(() => {
     payload.logger.info(`Next.js started on port ${PORT}`);
     app.listen(PORT, async () => {
-      payload.logger.info(
-        `Nextjs App URL: ${process.env.NEXT_PUBLIC_SERVER_URL}`
-      );
+      payload.logger.info(`Nextjs App URL: ${process.env.NEXT_SERVER_URL}`);
     });
   });
 };
