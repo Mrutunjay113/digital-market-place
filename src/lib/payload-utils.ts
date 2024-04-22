@@ -1,6 +1,5 @@
 import { User } from "../payload-types";
 import { ReadonlyRequestCookies } from "next/dist/server/web/spec-extension/adapters/request-cookies";
-import { cookies } from "next/headers";
 import { NextRequest } from "next/server";
 
 export const getServerSideUser = async (
@@ -16,6 +15,10 @@ export const getServerSideUser = async (
       },
     }
   );
-  const { user } = (await meRes.json()) as { user: User | null };
+
+  const { user } = (await meRes.json()) as {
+    user: User | null;
+  };
+
   return { user };
 };
