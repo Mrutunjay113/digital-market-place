@@ -10,7 +10,7 @@ const transporter = nodemailer.createTransport({
   host: "smtp.resend.com",
   port: 465,
   secure: true,
-
+  debug: true,
   auth: {
     user: "resend",
     pass: process.env.RESEND_API_KEY,
@@ -30,7 +30,7 @@ interface Args {
 }
 
 export const getPayloadClient = async ({ initOptions }: Args = {}) => {
-  if (!process.env.PAYLOAD_SECRET_KEY) {
+  if (!process.env.PAYLOAD_SECRET) {
     throw new Error("PAYLOAD_SECRET_KEY is not set");
   }
   if (cached.client) {
@@ -40,10 +40,10 @@ export const getPayloadClient = async ({ initOptions }: Args = {}) => {
     cached.promise = payload.init({
       email: {
         transport: transporter,
-        fromAddress: "<hello@hippomarketplace.shop>",
         fromName: "DigitalHippo",
+        fromAddress: "john@hippomarketplace.shop",
       },
-      secret: process.env.PAYLOAD_SECRET_KEY,
+      secret: process.env.PAYLOAD_SECRET,
       local: initOptions?.express ? false : true,
       ...(initOptions || {}),
     });
@@ -52,6 +52,7 @@ export const getPayloadClient = async ({ initOptions }: Args = {}) => {
     cached.client = await cached.promise;
   } catch (error: unknown) {
     cached.promise = null;
+    console.error("Error initializing Payload client", error);
     throw error;
   }
   return cached.client;
