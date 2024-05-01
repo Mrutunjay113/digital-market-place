@@ -5,23 +5,30 @@ import { NextRequest } from "next/server";
 export const getServerSideUser = async (
   cookies: NextRequest["cookies"] | ReadonlyRequestCookies
 ) => {
-  const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL;
-  if (!serverUrl) {
-    console.error("NEXT_PUBLIC_SERVER_URL is not set in the environment.");
-    return { user: null };
+  try {
+    const serverUrl = process.env.NEXT_PUBLIC_SERVER_URL;
+    if (!serverUrl) {
+      console.error("NEXT_PUBLIC_SERVER_URL is not set in the environment.");
+      return { user: null };
+    }
+
+    const token = cookies.get("payload-token")?.value;
+
+    const meRes = await fetch(`${serverUrl}/api/users/me`, {
+      headers: {
+        Authorization: `JWT ${token}`,
+      },
+    });
+
+    if (!meRes.ok) {
+      console.error(`Failed to fetch user data. Status: ${meRes.status}`);
+      return { user: null };
+    }
+
+    const { user } = await meRes.json();
+    return { user };
+  } catch (error) {
+    console.error("An error occurred while fetching user data:", error);
+    throw error; // Re-throw the error to propagate it further
   }
-
-  const token = cookies.get("payload-token")?.value;
-
-  const meRes = await fetch(`${serverUrl}/api/users/me`, {
-    headers: {
-      Authorization: `JWT ${token}`,
-    },
-  });
-
-  const { user } = (await meRes.json()) as {
-    user: User | null;
-  };
-
-  return { user };
 };
