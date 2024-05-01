@@ -34,6 +34,7 @@ const ThankYouPage = async ({ searchParams }: PageProps) => {
   if (!order) {
     return notFound();
   }
+  console.log(order);
   const orderUserId =
     typeof order.user === "string" ? order.user : order.user.id;
 
