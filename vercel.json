@@ -1,0 +1,6 @@
+{
+  "buildCommand": "npm run build",
+  "env": {
+    "PAYLOAD_CONFIG_PATH": "dist/payload.config.js"
+  }
+}
