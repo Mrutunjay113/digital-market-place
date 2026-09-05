@@ -9,14 +9,17 @@ const nextConfig = {
       "@payloadcms/richtext-slate",
       "mongoose",
     ],
-    outputFileTracingIncludes: {
-      "/api/**/*": ["./dist/**/*"],
-      "/api/trpc/[trpc]": ["./dist/**/*"],
-    },
   },
-  outputFileTracingIncludes: {
-    "/api/**/*": ["./dist/**/*"],
-    "/api/trpc/[trpc]": ["./dist/**/*"],
+  webpack: (config, { isServer, webpack }) => {
+    if (isServer) {
+      config.plugins.push(
+        new webpack.IgnorePlugin({
+          resourceRegExp: /\.s[ac]ss$/,
+          contextRegExp: /node_modules[\\/]payload/,
+        })
+      );
+    }
+    return config;
   },
   images: {
     domains: [

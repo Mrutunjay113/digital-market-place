@@ -35,22 +35,18 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.authRouter = void 0;
 var account_credentials_validator_1 = require("../lib/validators/account-credentials-validator");
 var trpc_1 = require("./trpc");
 var get_payload_1 = require("../get-payload");
-var payload_1 = __importDefault(require("payload"));
 var server_1 = require("@trpc/server");
 var zod_1 = require("zod");
 exports.authRouter = (0, trpc_1.router)({
     createPayloadUser: trpc_1.publicProcedure
         .input(account_credentials_validator_1.AuthCredentialsValidator)
         .mutation(function (_a) { return __awaiter(void 0, [_a], void 0, function (_b) {
-        var email, password, pyaload, users;
+        var email, password, payloadClient, users;
         var input = _b.input;
         return __generator(this, function (_c) {
             switch (_c.label) {
@@ -58,8 +54,8 @@ exports.authRouter = (0, trpc_1.router)({
                     email = input.email, password = input.password;
                     return [4 /*yield*/, (0, get_payload_1.getPayloadClient)()];
                 case 1:
-                    pyaload = _c.sent();
-                    return [4 /*yield*/, payload_1.default.find({
+                    payloadClient = _c.sent();
+                    return [4 /*yield*/, payloadClient.find({
                             collection: "users",
                             where: {
                                 email: {
@@ -71,7 +67,7 @@ exports.authRouter = (0, trpc_1.router)({
                     users = (_c.sent()).docs;
                     if (users.length !== 0)
                         throw new server_1.TRPCError({ code: "CONFLICT", message: "User exists" });
-                    return [4 /*yield*/, payload_1.default.create({
+                    return [4 /*yield*/, payloadClient.create({
                             collection: "users",
                             data: {
                                 email: email,
