@@ -5,6 +5,10 @@
     "src/app/api/trpc/[trpc]/route.tsx": {
       "includeFiles": "dist/**",
       "maxDuration": 30
+    },
+    "src/app/api/users/me/route.ts": {
+      "includeFiles": "dist/**",
+      "maxDuration": 30
     }
   }
 }
