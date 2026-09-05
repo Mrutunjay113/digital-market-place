@@ -12,6 +12,7 @@
     "build": "cross-env NODE_ENV=production npm run build:payload && npm run build:server && npm run copyfiles && npm run build:next",
     "start": "cross-env PAYLOAD_CONFIG_PATH=dist/payload.config.js NODE_ENV=production node dist/server.js",
     "copyfiles": "copyfiles -u 1 \"src/**/*.{html,css,scss,ttf,woff,woff2,eot,svg,jpg,png}\" dist/",
+    "vercel-build": "cross-env NODE_ENV=production npm run build:payload && npm run build:server && npm run copyfiles && next build",
     "lint": "next lint"
   },
   "resolutions": {

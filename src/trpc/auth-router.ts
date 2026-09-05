@@ -1,7 +1,6 @@
 import { AuthCredentialsValidator } from "../lib/validators/account-credentials-validator";
 import { publicProcedure, router } from "./trpc";
 import { getPayloadClient } from "../get-payload";
-import payload from "payload";
 import { TRPCError } from "@trpc/server";
 import { z } from "zod";
 
@@ -10,10 +9,10 @@ export const authRouter = router({
     .input(AuthCredentialsValidator)
     .mutation(async ({ input }) => {
       const { email, password } = input;
-      const pyaload = await getPayloadClient();
+      const payloadClient = await getPayloadClient();
 
       //check if user exists
-      const { docs: users } = await payload.find({
+      const { docs: users } = await payloadClient.find({
         collection: "users",
         where: {
           email: {
@@ -23,7 +22,7 @@ export const authRouter = router({
       });
       if (users.length !== 0)
         throw new TRPCError({ code: "CONFLICT", message: "User exists" });
-      await payload.create({
+      await payloadClient.create({
         collection: "users",
         data: {
           email,

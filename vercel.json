@@ -1,6 +1,10 @@
 {
-  "buildCommand": "npm run build",
-  "env": {
-    "PAYLOAD_CONFIG_PATH": "dist/payload.config.js"
+  "buildCommand": "npm run vercel-build",
+  "framework": "nextjs",
+  "functions": {
+    "src/app/api/trpc/[trpc]/route.tsx": {
+      "includeFiles": "dist/**",
+      "maxDuration": 30
+    }
   }
 }
